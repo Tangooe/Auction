@@ -48,7 +48,7 @@
                             <h4><strong>Starttid:</strong> {{auction.startTime | date: 'dd/MM/yyyy: hh:mm'}}</h4>
                             <h4><strong>Sluttid:</strong> {{auction.endTime | date: 'dd/MM/yyyy: hh:mm'}}</h4>
                             <h4><strong>Såld:</strong> {{auction.sold}}</h4>
-                            <div class="btn btn-success" (click)='onBuyNow()'><h4><strong>Köp nu:</strong> {{auction.buyNowPrice}} SEK</h4></div>
+                            <div class="btn btn-success" (click)='onBuyNow(auction.id)'><h4><strong>Köp nu:</strong> {{auction.buyNowPrice}} SEK</h4></div>
                         </div>
                     </div>
                 </div>

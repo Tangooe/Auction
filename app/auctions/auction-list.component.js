@@ -20,6 +20,7 @@ var core_1 = require('@angular/core');
 var router_1 = require('@angular/router');
 var auction_service_1 = require('./auction.service');
 var login_service_1 = require('../login/login.service');
+var buy_now_post_1 = require('./models/buy-now-post');
 var AuctionListComponent = (function () {
     function AuctionListComponent(_auctionService, _loginSerivce, _router) {
         this._auctionService = _auctionService;
@@ -27,19 +28,23 @@ var AuctionListComponent = (function () {
         this._router = _router;
         this.pageTitle = 'Auktioner';
         this.selectedValue = null;
+        this.buyNowPost = new buy_now_post_1.BuyNowPost();
     }
     AuctionListComponent.prototype.ngOnInit = function () {
         return __awaiter(this, void 0, void 0, function* () {
+            this.currentUser = yield this._loginSerivce.user;
             this.categories = yield this._auctionService.getCategories();
             this.auctions = yield this._auctionService.getAuctions();
         });
     };
-    AuctionListComponent.prototype.onBuyNow = function () {
+    AuctionListComponent.prototype.onBuyNow = function (id) {
         if (!this._loginSerivce.isLoggedIn()) {
             this._router.navigate(['login']);
         }
         else {
-            console.log('You pressed buynow while being logged in');
+            this.buyNowPost.auctionId = id;
+            this.buyNowPost.customerId = this.currentUser.id;
+            this._auctionService.postBuyNow(this.buyNowPost);
         }
     };
     AuctionListComponent = __decorate([

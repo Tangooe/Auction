@@ -6,6 +6,8 @@ import { LoginService } from '../login/login.service';
 
 import { Auction } from './models/auction';
 import { Category } from './models/category';
+import { BuyNowPost } from './models/buy-now-post';
+import { User } from '../user/user';
 
 @Component({
     moduleId: module.id,
@@ -18,8 +20,10 @@ export class AuctionListComponent implements OnInit {
     selectedValue: any = null;
     errorMessage: string;
 
+    buyNowPost: BuyNowPost = new BuyNowPost();
     auctions: Auction[];
     categories: Category[];
+    currentUser: User;
 
     constructor(private _auctionService: AuctionService,
                 private _loginSerivce: LoginService,
@@ -28,16 +32,19 @@ export class AuctionListComponent implements OnInit {
     }
 
     async ngOnInit() {
+        this.currentUser = await this._loginSerivce.user;
         this.categories = await this._auctionService.getCategories();
         this.auctions = await this._auctionService.getAuctions();
     }
 
-    onBuyNow(): void {
+    onBuyNow(id: number): void {
         if(!this._loginSerivce.isLoggedIn()) {
             this._router.navigate(['login']);
         }
         else {
-            console.log('You pressed buynow while being logged in')
+            this.buyNowPost.auctionId = id;
+            this.buyNowPost.customerId = this.currentUser.id;
+            this._auctionService.postBuyNow(this.buyNowPost)
         }
     }
 }
