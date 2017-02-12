@@ -1,0 +1,35 @@
+body {
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  margin: 0;
+  padding: 0;
+}
+h1 {
+  font-size: 55px;
+}
+.row {
+  position: relative;
+  overflow: hidden;
+}
+
+img {
+  object-fit: cover;
+  min-height:100px;
+}
+
+.auctionItem {
+  height: 300px;
+  max-height: 300px;
+}
+.auction-details {
+  height: 342px;
+  max-height: 342;
+}
+
+.label {
+  font-size: 18px;
+}
+  .bottom-align-text {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+  }

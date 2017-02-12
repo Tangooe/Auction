@@ -1,0 +1,59 @@
+<div class="row">
+    <div class="col-lg-2">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h4>Filter</h4>
+            </div>
+            <div class="panel-body">
+                <div class="form-group">
+                    <h4>Filtrera på namn:</h4>
+                    <input class="form-control text-left" type="text" [(ngModel)]='listFilter' />
+                </div>
+                <div class="form-group">
+                    <h4>Filtrera på kategori:</h4>
+                    <select class="form-control text-left" type="text" [(ngModel)]='selectedValue'>
+                        <option [ngValue]="null">Visa Alla</option>
+                        <option *ngFor="let category of categories" [ngValue]="category.id"> {{category.name}}</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-9 lg-offset-1">
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        <h4>{{pageTitle}}</h4>
+    </div>
+    <div class="panel-body">
+        <div class="row">
+
+        </div>
+        <div class="row">
+            <div class="col-lg-6" *ngIf='listFilter'>
+                <h3>Filtrerad på: {{listFilter}}</h3>
+            </div>
+        </div>
+        <div class="row" *ngIf='auctions && categories'>
+            <div class="col-lg-6" *ngFor='let auction of auctions | auctionFilter:listFilter:selectedValue'>
+                <div class="well auctionItem">
+                    <div class="row spec center-block col-xs-6">
+                        <img [src]='auction.imageUrl' [title]='auction.name' height="260px" width="420px"/><br>
+                    </div>
+                    <div class="col-xs-6">
+                        <div class="auctionItem">
+                            <h2 *ngFor='let category of categories | auctionCategory:auction.categoryId' class="text-primary">
+                                <a [routerLink]="['/auction', auction.id]">{{category.name }} - {{auction.name }}</a>
+                            </h2>
+                            <h4><strong>Beskrivning:</strong> {{auction.description}}</h4>
+                            <h4><strong>Starttid:</strong> {{auction.startTime | date: 'dd/MM/yyyy: hh:mm'}}</h4>
+                            <h4><strong>Sluttid:</strong> {{auction.endTime | date: 'dd/MM/yyyy: hh:mm'}}</h4>
+                            <h4><strong>Såld:</strong> {{auction.sold}}</h4>
+                            <div class="btn btn-success" (click)='onBuyNow()'><h4><strong>Köp nu:</strong> {{auction.buyNowPrice}} SEK</h4></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>

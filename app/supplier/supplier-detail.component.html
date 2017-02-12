@@ -1,0 +1,16 @@
+<div class="panel panel-primary" *ngIf='supplier'>
+    <div class="panel-heading">
+        <h2>{{supplier.name }}</h2>
+    </div>
+    <div class="panel-body auction-details">
+                <h3><strong>Adress:</strong> {{supplier.address}}</h3>
+                <h3><strong>Postkod:</strong> {{supplier.postalCode }}</h3>
+                <h3><strong>Stad:</strong> {{supplier.city }}</h3>
+                <h3><strong>Telefon:</strong> {{supplier.phone }}</h3>
+                <h3><strong>Email:</strong> {{supplier.email  }}</h3>
+                <h3><strong>Komission:</strong> {{(supplier.commission * 100)}}%</h3>
+    </div>
+</div>
+<a class="btn btn-default" (click)='onBack()' style="width:80px">
+    <i class="glyphicon glyphicon-chevron-left"></i> Back
+</a>

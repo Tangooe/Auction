@@ -1,0 +1,68 @@
+<div class="row">
+    <div class="col-lg-6">
+        <div class="panel panel-primary" *ngIf='bids'>
+            <div class="panel-heading">
+                <h1 *ngIf='currentUser'>{{currentUser.firstName}} {{currentUser.lastName}}</h1>
+                <h2>{{category.name}} - {{auction.name }}</h2>
+            </div>
+            <div class="panel-body auction-details">
+                <div class="row spec center-block col-xs-4">
+                    <img [src]='auction.imageUrl' [title]='auction.name' height="310px" width="420px"/><br>
+                </div>
+                <div class="col-xs-8">
+                    <div class="">
+                        <h3><strong>Beskrivning:</strong> {{auction.description}}</h3>
+                        <h3><strong>Leverantör:</strong><a [routerLink]="['/supplier', supplier.id]"> {{supplier.name}}</a></h3>
+                        <h3><strong>Starttid:</strong> {{auction.startTime | date: 'dd/MM/yyyy hh:mm'}}</h3>
+                        <h3><strong>Sluttid:</strong> {{auction.endTime | date: 'dd/MM/yyyy hh:mm'}}</h3>
+                        <div class="btn btn-success" (click)='onBuyNow()'><h4><strong>Köp nu:</strong> {{auction.buyNowPrice}} SEK</h4></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-6">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h2>Bud</h2>
+            </div>
+            <div class="panel-body">
+                <label><h3>Lägg Bud</h3></label>
+                <form>
+                    <div  *ngIf='message' class="alert alert-success">
+                        {{message}}
+                    </div>
+                    <div class="form-horizontal">
+                        <div class="form-group">
+                            <div class=" col-xs-9">
+                                <input  class="form-control" type="text" name="bidPrice" [(ngModel)]=bid.bidPrice/>
+                            </div>
+                            <button class=" col-xs-2 btn btn-success" (click)='onBid()'>
+                                Lägg Bud {{bid.bidPrice}}
+                            </button>
+                        </div>
+                    </div>
+                </form>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Budgivare</th>
+                            <th>Bud</th>
+                            <th>Datum</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor='let bid of bids'>
+                            <td><h3 *ngFor='let customer of customers | bidCustomer:bid.customerId'>{{customer.firstName}} {{customer.lastName}}</h3></td>
+                            <td><h3>{{bid.bidPrice}}</h3></td>
+                            <td><h3>{{bid.dateTime | date: 'dd/MM/yyyy hh:mm'}}</h3></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+        <a class="btn btn-default" (click)='onBack()' style="width:80px">
+            <i class="glyphicon glyphicon-chevron-left"></i> Back
+        </a>
+</div>

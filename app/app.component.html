@@ -1,0 +1,27 @@
+<div>
+    <header>
+        <div class="jumbotron">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-sm-3 text-left">
+                        <h3 class="text-primary ">
+                            <a [routerLink]="['/login']">
+                                <i class="glyphicon glyphicon-user"></i> Logga in
+                            </a><br><br>
+                            <a [routerLink]="['/auctions']">
+                                <i class="glyphicon glyphicon-book"></i> Auktioner
+                            </a>
+                        </h3>
+                    </div>
+                    <div class="col-sm-9">
+                        <h1 class="text-primary"><a [routerLink]="['/auctions']">{{pageTitle}}</a></h1>
+                        <p>Som Tradera fast sämre</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <section class="container-fluid">
+        <router-outlet></router-outlet>
+    </section>
+</div>
